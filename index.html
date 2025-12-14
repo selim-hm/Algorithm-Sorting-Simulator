@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Sorting Simulator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-sort-amount-down"></i> محاكي خوارزميات الفرز</h1>
+            <p class="subtitle">شاهد كيف تعمل خوارزميات الفرز خطوة بخطوة مع الرسوم المتحركة التوضيحية</p>
+        </header>
+
+        <div class="control-panel">
+            <div class="control-group">
+                <div class="control-item">
+                    <label for="arraySize">
+                        <i class="fas fa-bars"></i> عدد الأعمدة
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="arraySize" min="5" max="50" value="20" class="slider">
+                        <span id="arraySizeValue" class="value-display">20</span>
+                    </div>
+                </div>
+
+                <div class="control-item">
+                    <label for="speed">
+                        <i class="fas fa-tachometer-alt"></i> سرعة المحاكاة
+                    </label>
+                    <div class="slider-container">
+                        <input type="range" id="speed" min="1" max="20" value="10" class="slider">
+                        <span id="speedValue" class="value-display">متوسطة</span>
+                    </div>
+                </div>
+
+                <div class="control-item">
+                    <label for="algorithm">
+                        <i class="fas fa-sort"></i> خوارزمية الفرز
+                    </label>
+                    <select id="algorithm" class="custom-select">
+                        <option value="bubble">فرز الفقاعة (Bubble Sort)</option>
+                        <option value="selection">فرز الاختيار (Selection Sort)</option>
+                        <option value="insertion">فرز الإدراج (Insertion Sort)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="generateArrayBtn" class="btn primary-btn">
+                    <i class="fas fa-random"></i> توليد أرقام جديدة
+                </button>
+                <button id="startBtn" class="btn success-btn">
+                    <i class="fas fa-play"></i> بدء المحاكاة
+                </button>
+                <button id="pauseBtn" class="btn warning-btn" disabled>
+                    <i class="fas fa-pause"></i>  إيقاف مؤقت
+                </button>
+                <button id="resetBtn" class="btn danger-btn">
+                    <i class="fas fa-redo"></i> إعادة تعيين
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-panel">
+            <div class="stat-item">
+                <div class="stat-label">المقارنات</div>
+                <div class="stat-value" id="comparisonsCount">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">التبديلات</div>
+                <div class="stat-value" id="swapsCount">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">الحالة</div>
+                <div class="stat-value" id="status">جاهز</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">الخوارزمية</div>
+                <div class="stat-value" id="algorithmName">فرز الفقاعة</div>
+            </div>
+        </div>
+
+        <div class="visualization-container">
+            <div class="bars-container" id="barsContainer">
+                <!-- الأعمدة ستضاف هنا ديناميكياً -->
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color default-bar"></div>
+                <span>عنصر عادي</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color comparing-bar"></div>
+                <span>قيد المقارنة</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color swapping-bar"></div>
+                <span>قيد التبديل</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color sorted-bar"></div>
+                <span>تم الفرز</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color pivot-bar"></div>
+                <span>عنصر محوري</span>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-card">
+                <h3><i class="fas fa-info-circle"></i> كيف يعمل المحاكي؟</h3>
+                <p>1. يتم توليد مصفوفة عشوائية من الأرقام وتعرض كأعمدة.</p>
+                <p>2. اختر خوارزمية الفرز المطلوبة من القائمة.</p>
+                <p>3. اضغط على "بدء المحاكاة" لمشاهدة الخوارزمية تعمل خطوة بخطوة.</p>
+                <p>4. يمكنك التحكم في السرعة وإيقاف المحاكاة مؤقتاً في أي وقت.</p>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-code"></i> الخوارزميات المدعومة</h3>
+                <div class="algorithm-info">
+                    <h4><span class="algo-icon bubble">B</span> فرز الفقاعة (Bubble Sort)</h4>
+                    <p>يقارن عناصر متجاورة ويبدل بينها إذا كانت غير مرتبة.</p>
+                </div>
+                <div class="algorithm-info">
+                    <h4><span class="algo-icon selection">S</span> فرز الاختيار (Selection Sort)</h4>
+                    <p>يحدد أصغر عنصر في الجزء غير المرتب ويضعه في مكانه الصحيح.</p>
+                </div>
+                <div class="algorithm-info">
+                    <h4><span class="algo-icon insertion">I</span> فرز الإدراج (Insertion Sort)</h4>
+                    <p>يبني المصفوفة المرتبة عنصراً بعنصر بإدراج كل عنصر في مكانه الصحيح.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Algorithm Sorting Simulator - مشروع تعليمي تفاعلي باستخدام HTML, CSS, JavaScript فقط</p>
+            <p>© 2023 - تم التطوير لأغراض تعليمية</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
